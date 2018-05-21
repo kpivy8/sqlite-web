@@ -698,7 +698,7 @@ def get_option_parser():
     parser.add_option(
         '-P',
         '--password',
-        action='store_true',
+        default='54321',
         dest='prompt_password',
         help='Prompt for password to access database browser.')
     return parser
@@ -737,16 +737,7 @@ def main():
     if not args:
         die('Error: missing required path to database file.')
 
-    password = None
-    if options.prompt_password:
-        while True:
-            password = getpass('Enter password: ')
-            password_confirm = getpass('Confirm password: ')
-            if password != password_confirm:
-                print('Passwords did not match!')
-            else:
-                break
-
+    password = options.password
     if password:
         install_auth_handler(password)
 
